@@ -1,0 +1,1 @@
+/Users/ernesto/fig-export/dotfiles/dotfile.fish
