@@ -1,0 +1,28 @@
+{
+    "vscode-neovim.neovimExecutablePaths.darwin" : "/opt/homebrew/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/nvim/init.lua",
+    "terminal.integrated.env.osx": {
+        "CW_NEW_SESSION": "1"
+    },
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "editor.minimap.enabled": false,
+    "editor.accessibilitySupport": "off",
+    "editor.lineNumbers": "relative",
+    "editor.smoothScrolling": true,
+    "vscode-neovim.revealCursorScrollLine": true,
+    "workbench.colorTheme": "onedark.nvim",
+    "workbench.activityBar.location": "hidden",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.statusBar.visible": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.editor.limit.excludeDirty": true,
+    "workbench.editor.limit.perEditorGroup": true,
+}
