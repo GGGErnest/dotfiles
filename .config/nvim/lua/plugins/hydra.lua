@@ -1,5 +1,6 @@
 return {
   "anuvyklack/hydra.nvim",
+  vscode = true,
   config = function()
     local Hydra = require("hydra")
 

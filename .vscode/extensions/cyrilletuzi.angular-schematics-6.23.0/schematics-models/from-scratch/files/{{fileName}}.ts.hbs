@@ -1,0 +1,32 @@
+{{!-- This is a comment, modify this file with the code you want to generate
+
+Available expressions:
+{{name}}      hello-world
+{{fileName}}  hello-world or hello-world.suffix
+{{className}} HelloWorld or HelloWorldSuffix
+{{camelName}} helloWorld or helloWorldSuffix
+{{options.someOption}} value of an option defined in schematic.json
+
+Conditions:
+{{#if options.someOption}}some code{{/if}}
+{{#unless options.someOption}}some code{{/unless}}
+
+Available helpers:
+{{dasherize name}} hello-world
+{{classify name}}  HelloWorld
+{{camelize name}}  helloWorld
+
+Full Handlebars documentation: https://handlebarsjs.com/guide
+
+Example:
+
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class {{className}} {
+
+  constructor() { }
+
+}
+
+--}}

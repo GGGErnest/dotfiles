@@ -1,0 +1,14 @@
+{
+  "$schema": "../schematic-schema-v1.json",
+  "id": "{{schematicId}}",
+  "label": "{{schematicLabel}}",
+  "collection": "Custom",
+  "description": "",
+  "tooltipDescription": "",
+  "mainFile": "{{fileName}}.ts.hbs",
+  "pathSubfolder": false,
+  "suffix": "",
+  "dependenciesRequired": [],
+  "features": [],
+  "options": {}
+}

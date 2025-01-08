@@ -1,0 +1,14 @@
+Copyright (c) 2021-2024 Cyrille Tuzi
+
+This software (the "Software") contains 2 parts:
+- a free one
+- a paid one, called the "Pro Edition"
+
+The usage of the Pro edition and associated documentation files is granted on the basis of a paid subscription, in the conditions mentioned on the website:
+https://cyrilletuzi.gumroad.com/l/schematicspro
+
+The usage of the Pro edition of the Software is limited to the duration of the subscription.
+
+Permission to copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software (both the free part and the Pro edition part) is DENIED.
+
+THE SOFTWARE (BOTH THE FREE PART AND THE PRO EDITION PART) IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

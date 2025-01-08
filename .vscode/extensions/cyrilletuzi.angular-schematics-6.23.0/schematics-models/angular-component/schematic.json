@@ -1,0 +1,19 @@
+{
+  "$schema": "../schematic-schema-v1.json",
+  "id": "{{schematicId}}",
+  "label": "{{schematicLabel}}",
+  "collection": "Custom",
+  "description": "",
+  "tooltipDescription": "",
+  "dependenciesRequired": [],
+  "pathSubfolder": true,
+  "suffix": "component",
+  "mainFile": "{{fileName}}.ts.hbs",
+  "features": [
+    "exportableInEntryFile",
+    "angular",
+    "angularSelectorKebabCase",
+    "angularImportsInsideComponent"
+  ],
+  "options": {}
+}

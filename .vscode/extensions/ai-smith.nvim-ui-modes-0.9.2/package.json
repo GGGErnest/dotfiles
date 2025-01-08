@@ -1,0 +1,133 @@
+{
+	"name": "nvim-ui-modes",
+	"displayName": "Neovim UI Modes",
+	"description": "Adjust UI colors dynamically based on NVim modes",
+	"author": "Timur Kussainov kusainov.timur@gmail.com",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ai-smith/nvim-ui-modes.git"
+	},
+	"keywords": [
+		"neovim",
+		"ui",
+		"theme",
+		"vscode",
+		"modes"
+	],
+	"icon": "resources/logo.png",
+	"version": "0.9.2",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.96.0"
+	},
+	"extensionDependencies": [
+		"asvetliakov.vscode-neovim"
+	],
+	"categories": [
+		"Other",
+		"Themes"
+	],
+	"extensionKind": [
+		"ui",
+		"workspace"
+	],
+	"publisher": "AI-Smith",
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "nvim-ui-modes.normal",
+				"title": "Neovim: Color mode normal"
+			},
+			{
+				"command": "nvim-ui-modes.command",
+				"title": "Neovim: Color mode  command"
+			},
+			{
+				"command": "nvim-ui-modes.insert",
+				"title": "Neovim: Color mode  insert"
+			},
+			{
+				"command": "nvim-ui-modes.visual",
+				"title": "Neovim: Color mode  visual"
+			},
+			{
+				"command": "nvim-ui-modes.replace",
+				"title": "Neovim: Color mode  replace"
+			}
+		],
+		"configuration": {
+			"title": "Neovim Color Modes",
+			"properties": {
+				"nvim-ui-modes.colorCustomizations": {
+					"type": "object",
+					"default": {
+						"normal": {
+							"editorCursor.foreground": "#e9dbb7",
+							"activityBarBadge.background": "#e9dbb7",
+							"activityBarBadge.foreground": "#262626",
+							"statusBar.background": "#262626",
+							"statusBar.foreground": "#e9dbb7"
+						},
+						"command": {
+							"editorCursor.foreground": "#e9dbb7",
+							"activityBarBadge.background": "#262626",
+							"activityBarBadge.foreground": "#e9dbb7",
+							"statusBar.background": "#e9dbb7",
+							"statusBar.foreground": "#262626"
+						},
+						"insert": {
+							"editorCursor.foreground": "#ef857d",
+							"activityBarBadge.background": "#e9dbb7",
+							"activityBarBadge.foreground": "#262626",
+							"statusBar.background": "#9f5a51",
+							"statusBar.foreground": "#e9dbb7"
+						},
+						"visual": {
+							"editorCursor.foreground": "#3e97f7",
+							"activityBarBadge.background": "#e9dbb7",
+							"activityBarBadge.foreground": "#262626",
+							"statusBar.background": "#5079b0",
+							"statusBar.foreground": "#e9dbb7"
+						},
+						"replace": {
+							"activityBarBadge.background": "#e9dbb7",
+							"activityBarBadge.foreground": "#262626",
+							"statusBar.background": "#439291",
+							"statusBar.foreground": "#e9dbb7"
+						}
+					},
+					"description": "Define color customizations for UI elements for each NVIM mode (Normal, Insert, Visual, Replace, Command)."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"build": "tsc --project tsconfig.json",
+		"package": "vsce package",
+		"prepare": "npm run build"
+	},
+	"devDependencies": {
+		"@types/node": "^v22.10.2",
+		"@types/vscode": "^1.96.0",
+		"@vscode/vsce": "^3.2.1",
+		"typescript": "^5.7.2"
+	},
+	"__metadata": {
+		"id": "3323cbe4-6333-4201-abc0-7d1f9b926759",
+		"publisherId": "c766ea9f-d4ce-49a8-aa48-52b7b0f0e5b5",
+		"publisherDisplayName": "AI-Smith",
+		"targetPlatform": "undefined",
+		"isApplicationScoped": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1736025714125,
+		"pinned": false,
+		"preRelease": false,
+		"source": "gallery",
+		"size": 41217
+	}
+}
