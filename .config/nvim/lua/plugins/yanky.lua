@@ -1,5 +1,6 @@
 return {
   "gbprod/yanky.nvim",
+  vscode = true,
   opts = {
     ring = {
       history_length = 100,
