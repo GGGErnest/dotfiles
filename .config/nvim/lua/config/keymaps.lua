@@ -14,9 +14,6 @@ end
 --keymap.set("i", "jk", "<ESC>", opts)
 keymap.set("n", "<C-S-s>", ":wall<CR>", opts)
 
--- remove ";" from the maps
--- vim.keymap.del({ "n", "v", "o" }, ";")
-
 -- Set up keymaps for scrolling with arrow keys
 vim.keymap.set("n", "<S-Down>", smooth_scroll(3, "<C-e>"), { silent = true })
 vim.keymap.set("n", "<S-Up>", smooth_scroll(3, "<C-y>"), { silent = true })
@@ -32,3 +29,6 @@ keymap.set("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 keymap.set("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
+
+-- Setting up angular component navigation keymaps
+require("utils.angular_utils").setup_keymaps()
