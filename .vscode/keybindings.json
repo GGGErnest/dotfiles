@@ -1,28 +1,62 @@
- [
-  // Navigation
+[
+  // Pass through commands to Neovim
   {
-      "key": "ctrl-h",
-      "command": "workbench.action.navigateLeft",
+    "command": "vscode-neovim.send",
+    "key": "ctrl+p",
+    "when": "editorTextFocus && (neovim.mode == normal || neovim.mode == visual)",
+    "args": "<C-p>"
   },
   {
-    "key": "ctrl-l",
-    "command": "workbench.action.navigateRight"
+    "command": "vscode-neovim.send",
+    "key": "ctrl+s",
+    "when": "editorTextFocus && (neovim.mode == normal || neovim.mode == visual)",
+    "args": "<C-s>"
   },
+  // Open context menu in the editor
   {
-    "key": "ctrl-k",
-    "command": "workbench.action.navigateUp"
+    "key": "space o c",
+    "command": "editor.action.showContextMenu",
+    "when": "neovim.mode == normal && editorTextFocus"
   },
+  // opens the source control sidebar
   {
-      "key": "ctrl-j",
-      "command": "workbench.action.navigateDown",
+    "key": "space u g",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.view.scm",
+        "workbench.scm.action.focusNextResourceGroup"
+      ]
+    },
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
   },
+  // hides the activity bar
   {
-    "key": "space ,",
-    "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
+    "key": "space u a",
+    "command": "runCommands",
+    "args": {
+      "commands": ["workbench.action.toggleActivityBarVisibility"]
+    },
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
+  },
+  //  toggles the sidebar visibility
+  {
+    "key": "space u s",
+    "command": "runCommands",
+    "args": {
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    "when": "neovim.mode==normal && (editorTextFocus || !inputFocus) && !sideBarFocus"
+  },
+  // opens the extensions sidebar
+  {
+    "key": "space u x",
+    "command": "workbench.view.extensions",
     "when": "neovim.mode==normal && (editorTextFocus || !inputFocus)"
   },
+  // opens the file explorer sidebar
   {
-    "key": "space e",
+    "key": "space u e",
     "command": "runCommands",
     "args": {
       "commands": [
@@ -30,163 +64,225 @@
         "workbench.files.action.focusFilesExplorer"
       ]
     },
-    "when": "neovim.mode==normal && (editorTextFocus || !inputFocus) && !sideBarFocus"
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus) && !sideBarFocus"
   },
+  // moves the focus to the left of a panel
   {
-    "key": "space e",
-    "command": "runCommands",
+    "key": "ctrl-h",
+    "command": "workbench.action.navigateLeft"
+  },
+  // moves the focus to the right of a panel
+  {
+    "key": "ctrl-l",
+    "command": "workbench.action.navigateRight"
+  },
+  // moves the focus to the panel up
+  {
+    "key": "ctrl-k",
+    "command": "workbench.action.navigateUp"
+  },
+  // moves the focus to the panel down
+  {
+    "key": "ctrl-j",
+    "command": "workbench.action.navigateDown"
+  },
+  // moves the scroll up in the editor
+  {
+    "key": "up",
+    "command": "editorScroll",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && editorTextFocus",
     "args": {
-      "commands": [
-        "workbench.action.toggleSidebarVisibility",
-        "workbench.action.focusActiveEditorGroup"
-      ]
-    },
-    "when": "sideBarFocus && !inputFocus"
+      "to": "up",
+      "by": "halfPage",
+      "revealCursor": true
+    }
   },
-{
-		"key": "up",
-		"command": "editorScroll",
-		"when": "neovim.mode != insert && editorTextFocus",
-		"args": 
-		{
-			"to": "up",
-			"by": "halfPage",
-			"revealCursor": true
-		}
-	},
-	{
-		"key": "down",
-		"command": "editorScroll",
-		"when": "neovim.mode != insert && editorTextFocus",
-		"args": 
-		{
-			"to": "down",
-			"by": "halfPage",
-			"revealCursor": true
-		}
-	},
-  // Change to another binding since the space e keybinding I normally use it to open the file search
+  // moves the scroll down in the editor
   {
-    "key": "space e",
-    "when": "neovim.mode==normal && editorTextFocus && foldersViewVisible",
-    "command": "workbench.action.toggleSidebarVisibility"
+    "key": "down",
+    "command": "editorScroll",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && editorTextFocus",
+    "args": {
+      "to": "down",
+      "by": "halfPage",
+      "revealCursor": true
+    }
   },
+  // Toggles a bookmark at the cursor's position
   {
-    "key": "shift-l",
-    "command": "workbench.action.nextEditorInGroup",
-    "when": "(neovim.mode==normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
-  },
-  {
-    "key": "shift-h",
-    "command": "workbench.action.previousEditorInGroup",
+    "key": "space m t",
+    "command": "bookmarks.toggle",
     "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
   },
-  // Coding
+  // Jumps to the next bookmark in the list
+  {
+    "key": "space m n",
+    "command": "bookmarks.jumpToNext",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
+  },
+  // Jumps to the previous bookmark in the list
+  {
+    "key": "space m p",
+    "command": "bookmarks.jumpToPrevious",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
+  },
+  // Shows the bookmark list
+  {
+    "key": "space m l",
+    "command": "bookmarks.listFromAllFiles",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
+  },
+  // Removes all bookmarks in the current file
+  {
+    "key": "space m c",
+    "command": "bookmarks.clear",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
+  },
+  // Removes all bookmarks from all files
+  {
+    "key": "space m shift+c",
+    "command": "bookmarks.clearFromAllFiles",
+    "when": "(neovim.mode == normal || neovim.mode == visual) && (editorTextFocus || !inputFocus)"
+  },
+  // Triggers the hover event at the cursor's position in the editor
   {
     "key": "shift-k",
     "command": "editor.action.showHover",
     "when": "neovim.mode == normal && editorTextFocus"
-  }, 
+  },
+  // Triggers the code action menu at the cursor's position in the editor
   {
     "key": "space c a",
     "command": "editor.action.codeAction",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Triggers the code the rename action on the editor at the cursor's position
   {
     "key": "space c r",
     "command": "editor.action.rename",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Opens the Symbols lists of the current file
   {
     "key": "space c s",
     "command": "workbench.action.gotoSymbol",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Closes the editor on the current file
   {
     "key": "space b d",
     "command": "workbench.action.closeActiveEditor",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Closes all the other editors but the active one
+  {
+    "key": "space b o",
+    "command": "workbench.action.closeOtherEditors",
+    "when": "neovim.mode == normal && editorTextFocus"
+  },
+  // Opens the quickOpen view to find files and execute commands
   {
     "key": "space f f",
     "command": "workbench.action.quickOpen",
     "when": "(neovim.mode != insert) && (editorTextFocus || !inputFocus)"
   },
+  // Go to definition on a simbol
   {
     "key": "space g d",
     "command": "editor.action.revealDefinition",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Got to references
   {
     "key": "space g r",
     "command": "editor.action.goToReferences",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Go to implementation
   {
     "key": "space g i",
     "command": "editor.action.goToImplementation",
     "when": "neovim.mode == normal && editorTextFocus"
   },
+  // Triggers find in files side bar
   {
     "key": "space /",
     "command": "workbench.action.findInFiles",
     "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
   },
+  // Triggers organize imports in the editor
   {
-    "key": "space g g",
-    "command": "runCommands",
-    "when": "neovim.mode == normal && (editorTextFocus || !inputFocus)",
-    "args": {
-      "commands": ["workbench.view.scm", "workbench.scm.focus"]
-    }
+    "key": "space c o",
+    "command": "editor.action.organizeImports",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
   },
+  // Triggers formating on the current editor
   {
-    "key": "ctrl-n",
-    "command": "editor.action.addSelectionToNextFindMatch",
-    "when": "(neovim.mode == normal || nevim.mode == visual) && (editorTextFocus || !inputFocus)"
+    "key": "space c f",
+    "command": "editor.action.formatDocument",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
   },
-
-  // File Explorer
+  // Trigger the fixAll action on the current editor
+  {
+    "key": "space c shift+f",
+    "command": "editor.action.fixAll",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
+  },
+  // Run all tests in the current editor
+  {
+    "key": "space c t",
+    "command": "extension.runJestFile",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
+  },
+  // Triggers rename file in the file explorer
   {
     "key": "r",
     "command": "renameFile",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Copies the selected file in the file explorer
   {
     "key": "y",
     "command": "filesExplorer.copy",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Paste the previously copied file to the current position in the file explorer
   {
     "key": "p",
     "command": "filesExplorer.paste",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Cuts the current file in the file explorer
   {
     "key": "x",
     "command": "filesExplorer.cut",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Deletes the current file in the file explorer
   {
     "key": "d",
     "command": "deleteFile",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Creates a new file in the file explorer
   {
     "key": "c",
     "command": "explorer.newFile",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Creates a new folder in the file explorer
   {
     "key": "shift-c",
     "command": "explorer.newFolder",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Open in a split view the current file selected in the file explorer
   {
     "key": "s",
     "command": "explorer.openToSide",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Open in a horizontal split view the file selected in the file explorer
   {
     "key": "shift-s",
     "command": "runCommands",
@@ -199,17 +295,19 @@
       ]
     }
   },
+  // Opens a file in the editor from the file explorer
   {
     "key": "enter",
     "command": "explorer.openAndPassFocus",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceIsFolder && !inputFocus"
   },
+  // Expands a folder to reveal its files in the file explorer
   {
     "key": "enter",
     "command": "list.toggleExpand",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && explorerResourceIsFolder && !inputFocus"
   },
-    // Terminal 
+  // Toggles the terminal
   {
     "key": "ctrl+shift+t",
     "command": "workbench.action.terminal.toggleTerminal",
@@ -220,24 +318,99 @@
     "command": "workbench.action.terminal.toggleTerminal",
     "when": "terminal.active"
   },
-   {
-     "key": "ctrl+shift+l",
-     "command": "workbench.action.terminal.focusNext",
-     "when": "terminalFocus"
-   },
-   {
-     "key": "ctrl+shift+h",
-     "command": "workbench.action.terminal.focusPrevious",
-     "when": "terminalFocus"
-   },
-   {
-     "key": "ctrl+shift+n",
-     "command": "workbench.action.terminal.new",
-     "when": "terminalFocus"
-   },
+  // Focuses the next terminal
+  {
+    "key": "ctrl+shift+l",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
+  },
+  // Focuses the previous terminal
+  {
+    "key": "ctrl+shift+h",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
+  },
+  // Creates a new terminal
+  {
+    "key": "ctrl+shift+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus"
+  },
+  // Terminates and closes a terminal
   {
     "key": "ctrl+shift+w",
     "command": "workbench.action.terminal.kill",
     "when": "terminalFocus"
   },
+  // Toggles a breakpoint in the editor
+  {
+    "key": "space d b",
+    "command": "editor.debug.action.toggleBreakpoint",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
+  },
+  // Starts/Continue a debug session
+  {
+    "key": "space d a",
+    "command": "workbench.action.debug.start",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus) && debuggersAvailable && debugState == 'inactive'"
+  },
+  {
+    "key": "space d a",
+    "command": "workbench.action.debug.continue",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus) && debugState == 'stopped'"
+  },
+  // Opens git
+  {
+    "key": "space g g ",
+    "command": "lazygit.openLazygit",
+    "when": "neovim.mode != insert && (editorTextFocus || !inputFocus)"
+  },
+  // Opens the next change in dirtyView if it is not opened
+  {
+    "key": "space g c",
+    "command": "editor.action.dirtydiff.next",
+    "when": "neovim.mode != insert && editorTextFocus && !dirtyDiffVisible"
+  },
+  // Opens the previous change in dirtyView while been in dirtyView open
+  {
+    "key": "up",
+    "command": "editor.action.dirtydiff.previous",
+    "when": "neovim.mode != insert && editorTextFocus && dirtyDiffVisible"
+  },
+  // Opens the next change in dirtyView while been in dirtyView open
+  {
+    "key": "down",
+    "command": "editor.action.dirtydiff.next",
+    "when": "neovim.mode != insert && editorTextFocus && dirtyDiffVisible"
+  },
+  // Revert the changes opened in dirtyView
+  {
+    "key": "d",
+    "command": "git.revertSelectedRanges",
+    "when": "neovim.mode != insert && editorTextFocus && dirtyDiffVisible"
+  },
+  // Opens the ts of an angular component. Provided the project is an angular project fc.
+  {
+    "key": "space a c",
+    "command": "extension.switchTypeScript",
+    "when": "neovim.mode != insert && editorTextFocus"
+  },
+  // Opens the styles of an angular component. Provided the project is an angular project fc.
+  {
+    "key": "space a s",
+    "command": "extension.switchCSS",
+    "when": "neovim.mode != insert && editorTextFocus"
+  },
+  // Opens the HTML of an angular component. Provided the project is an angular project fc.
+  {
+    "key": "space a h",
+    "command": "extension.switchHTML",
+    "when": "neovim.mode != insert && editorTextFocus"
+  },
+  // Opens the tests of an angular component. Provided the project is an angular project fc.
+  {
+    "key": "space a t",
+    "command": "extension.switchTest",
+    "when": "neovim.mode != insert && editorTextFocus"
+  }
 ]
