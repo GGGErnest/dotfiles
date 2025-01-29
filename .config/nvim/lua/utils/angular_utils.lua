@@ -1,4 +1,3 @@
--- lua/util/angular.lua
 local M = {}
 
 M.config = {
@@ -41,17 +40,6 @@ M.config = {
     },
   },
 }
-
--- Helper functions
-local function build_variant_pattern()
-  local grep_pattern = table.concat(
-    vim.tbl_map(function(variant)
-      return string.format("\\.%s\\.", variant)
-    end, M.config.variants),
-    "|"
-  )
-  return grep_pattern .. "|.module.|.service."
-end
 
 local function get_file_info(file_name)
   -- Extract both base name and variant from current file
@@ -101,26 +89,6 @@ local function try_file_patterns(base_path, variant, patterns)
     end
   end
   return nil
-end
-
-function M.get_angular_finder()
-  local pattern = build_variant_pattern()
-  return function()
-    require("fzf-lua").files({
-      prompt = "Angular Files> ",
-      cmd = string.format([[fd -t f -e ts -e html -e scss -e css . --exclude node_modules | grep -E '%s']], pattern),
-      previewer = "bat",
-      prompt_title = "Angular Files",
-      winopts = {
-        height = 0.7,
-        width = 0.9,
-        preview = {
-          hidden = "nohidden",
-          vertical = "right:40%",
-        },
-      },
-    })
-  end
 end
 
 function M.setup_keymaps()

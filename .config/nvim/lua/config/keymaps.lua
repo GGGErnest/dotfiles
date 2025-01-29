@@ -1,3 +1,5 @@
+local text_replace = require("utils.text_replacement")
+
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
@@ -30,5 +32,16 @@ keymap.set("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
--- Setting up angular component navigation keymaps
+-- Register angular navigation keymaps.
 require("utils.angular_utils").setup_keymaps()
+
+-- Regular search and replace
+-- vim.keymap.set({ "n", "v" }, "<leader>tr", text_replace.replace_in_buffer, { desc = "Replace in buffer" })
+
+-- Word/selection replace for both normal and visual mode
+-- vim.keymap.set(
+--   { "n", "v" },
+--   "<leader>tw",
+--   text_replace.smart_word_replace,
+--   { desc = "Replace word under cursor/selection" }
+-- )

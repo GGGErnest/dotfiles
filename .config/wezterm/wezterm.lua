@@ -50,12 +50,11 @@ local direction_keys = {
 local function split_nav(resize_or_move, key)
 	return {
 		key = key,
-		mods = resize_or_move == "resize" and "META" or "CTRL",
+		mods = resize_or_move == "resize" and "META|CTRL" or "CTRL", -- Changed from "META" to "META|CTRL"
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
-				-- pass the keys through to vim/nvim
 				win:perform_action({
-					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
+					SendKey = { key = key, mods = resize_or_move == "resize" and "META|CTRL" or "CTRL" },
 				}, pane)
 			else
 				if resize_or_move == "resize" then
@@ -70,7 +69,7 @@ end
 
 config.adjust_window_size_when_changing_font_size = false
 config.automatically_reload_config = true
-config.color_scheme = "One Dark (Gogh)"
+config.color_scheme = "tokyonight_night"
 config.enable_scroll_bar = true
 config.enable_wayland = true
 -- config.window_background_opacity = 0.8
@@ -244,11 +243,6 @@ config.keys = {
 		action = act.PaneSelect({ mode = "SwapWithActiveKeepFocus" }),
 	},
 	-- Zoom current pane (toggle)
-	{
-		key = "z",
-		mods = "LEADER",
-		action = act.TogglePaneZoomState,
-	},
 	{
 		key = "f",
 		mods = "LEADER",

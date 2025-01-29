@@ -1,6 +1,5 @@
 return {
-  "navarasu/onedark.nvim",
-  opts = {
-    style = "deep",
-  },
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
 }
