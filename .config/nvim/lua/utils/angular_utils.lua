@@ -165,14 +165,14 @@ function M.setup_keymaps()
 
   -- Create keymaps dynamically based on configuration
   for _, ext_config in ipairs(M.config.extensions) do
-    vim.keymap.set("n", string.format("<leader>a%s", ext_config.key), function()
+    vim.keymap.set("n", string.format("<leader>j%s", ext_config.key), function()
       switch_angular_file(ext_config.key)
     end, { desc = string.format("Go to %s", ext_config.name) })
   end
 
   -- Add keymaps for special files
   for _, special in ipairs(M.config.special_files) do
-    vim.keymap.set("n", string.format("<leader>a%s", special.key), function()
+    vim.keymap.set("n", string.format("<leader>j%s", special.key), function()
       switch_angular_file(special.key)
     end, { desc = string.format("Go to %s", special.name) })
   end

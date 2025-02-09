@@ -1,3 +1,4 @@
+local path_util = require("utils.path")
 return {
   {
     "nvim-neotest/neotest",
@@ -7,7 +8,7 @@ return {
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
       "thenbe/neotest-playwright",
-      "nvim-telescope/telescope.nvim",
+      dependencies = "nvim-telescope/telescope.nvim",
     },
     keys = {
       {
@@ -118,17 +119,69 @@ return {
         end,
         desc = "Toggle Watch (Neotest)",
       },
+      {
+        "<leader>ctD",
+        function()
+          require("neotest").diagnostic()
+        end,
+        desc = "Toogle Diagnostics (Neotest)",
+      },
     },
     opts = {
+      output = {
+        enabled = true,
+        open_on_run = true,
+        enter = true,
+        short = false,
+      },
+      output_options = {
+        open_on_run = true,
+        open_on_failure = true,
+        short_output = false,
+        capture_output = true,
+        clear = true,
+      },
       adapters = {
         ["neotest-jest"] = {
           jestConfigFile = function()
-            return require("utils.path").get_root() .. "/jest.config.ts"
+            return path_util.get_root() .. "/jest.config.ts"
           end,
-          env = { CI = true },
+          -- Remove CI=true to ensure console.log is not suppressed
+          env = {
+            NODE_ENV = "test",
+            FORCE_COLOR = "1",
+          },
           cwd = function()
-            return require("utils.path").get_root()
+            return path_util.get_root()
           end,
+        },
+        ["neotest-playwright"] = {
+          options = {
+            persist_project_selection = true,
+            enable_dynamic_test_discovery = true,
+            get_playwright_config = function()
+              return path_util.get_root() .. "/tests/user-journey/playwright.config.ts"
+            end,
+            env = {
+              ["EMS_URL"] = "http://localhost:4200",
+              ["EMS_TEAM"] = "https://sdet-debug-celonis.beta.celonis.cloud",
+              ["EMS_API_KEY"] = "NzRkMGQ5YTctZmJlOC00ZWExLWFkMGEtM2UzMTQ5YWJhOTBiOmZaWEF6bGpGOVJaRkpiYkVLN1RQc0h0U1NRZ0J0bVZQRzJyd2VqaEt0bjRX",
+              ["EMS_USERNAME"] = "cypress+screenplay@celonis.de",
+              ["EMS_PASSWORD"] = "Cypress123",
+              ["USER_KEY"] = "Github_CI",
+              ["EMS_BACKEND_API_KEY"] = "YzY3MjQ1MWUtNjNlMC00OTcxLTgwZWYtMjk4MWJhY2IzZGU3OmcvMWlOanRZTWJzS2NScUxBRkp1SVgzb2NqaC9ma1ZpODNYSWFuaUVJUnEr",
+            },
+            is_test_file = function(file_path)
+              local result = file_path:find("tests/user-journey/tests/.*%.screenplay%.ts$") ~= nil
+              return result
+            end,
+            experimental = {
+              telescope = {
+                enabled = true,
+                opts = {},
+              },
+            },
+          },
         },
       },
     },

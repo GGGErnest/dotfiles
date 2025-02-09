@@ -34,14 +34,3 @@ keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
 -- Register angular navigation keymaps.
 require("utils.angular_utils").setup_keymaps()
-
--- Regular search and replace
--- vim.keymap.set({ "n", "v" }, "<leader>tr", text_replace.replace_in_buffer, { desc = "Replace in buffer" })
-
--- Word/selection replace for both normal and visual mode
--- vim.keymap.set(
---   { "n", "v" },
---   "<leader>tw",
---   text_replace.smart_word_replace,
---   { desc = "Replace word under cursor/selection" }
--- )
