@@ -146,7 +146,6 @@ return {
           jestConfigFile = function()
             return path_util.get_root() .. "/jest.config.ts"
           end,
-          -- Remove CI=true to ensure console.log is not suppressed
           env = {
             NODE_ENV = "test",
             FORCE_COLOR = "1",
