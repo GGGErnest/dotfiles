@@ -1,4 +1,5 @@
-local function dial(increment, g)
+local M = {}
+function M.dial(increment, g)
   local mode = vim.fn.mode(true)
   -- Use visual commands for VISUAL 'v', VISUAL LINE 'V' and VISUAL BLOCK '\22'
   local is_visual = mode == "v" or mode == "V" or mode == "\22"
@@ -13,60 +14,16 @@ return {
   desc = "Increment and decrement numbers, dates, and more",
   -- stylua: ignore
   keys = {
-    {
-      "<C-m>",
-      function()
-        return dial(true)
-      end,
-      expr = true,
-      desc = "Increment",
-      mode = { "n", "v" },
-    },
-    {
-      "<C-,>",
-      function()
-        return dial(false)
-      end,
-      expr = true,
-      desc = "Decrement",
-      mode = { "n", "v" },
-    },
-    {
-      "g<C-m>",
-      function()
-        return dial(true, true)
-      end,
-      expr = true,
-      desc = "Increment",
-      mode = { "n", "v" },
-    },
-    {
-      "g<C-,>",
-      function()
-        return dial(false, true)
-      end,
-      expr = true,
-      desc = "Decrement",
-      mode = { "n", "v" },
-    },
+    { "<C-,>", function() return M.dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
+    { "<C-m>", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
+    { "g<C-,>", function() return M.dial(true, true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
+    { "g<C-m>", function() return M.dial(false, true) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
   },
   opts = function()
     local augend = require("dial.augend")
 
     local logical_alias = augend.constant.new({
       elements = { "&&", "||" },
-      word = false,
-      cyclic = true,
-    })
-
-    local disabled_enabled = augend.constant.new({
-      elements = { "enabled", "disabled" },
-      word = false,
-      cyclic = true,
-    })
-
-    local disable_enable = augend.constant.new({
-      elements = { "enable", "disable" },
       word = false,
       cyclic = true,
     })
@@ -126,6 +83,16 @@ return {
       cyclic = true,
     })
 
+    local accesibility_modifiers = augend.constant.new({
+      elements = {
+        "public",
+        "private",
+        "protected",
+      },
+      word = true,
+      cyclic = true,
+    })
+
     local capitalized_boolean = augend.constant.new({
       elements = {
         "True",
@@ -162,8 +129,7 @@ return {
           capitalized_boolean,
           augend.constant.alias.bool, -- boolean value (true <-> false)
           logical_alias,
-          enalbed_disabled = disabled_enabled,
-          disable_enable,
+          accesibility_modifiers,
         },
         vue = {
           augend.constant.new({ elements = { "let", "const" } }),
