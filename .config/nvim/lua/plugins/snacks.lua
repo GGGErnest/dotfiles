@@ -38,7 +38,7 @@ return {
   },
   -- stylua: ignore
   keys = {
-    { "<leader>,", function() Snacks.picker.buffers({focus="list",current=false, sort_lastused=true }) end, desc = "Buffers" },
+    { "<leader>,", function() Snacks.picker.buffers({focus="list",current=false, sort_lastused=true,preview= false }) end, desc = "Buffers" },
     { "<leader>su", function() Snacks.picker.undo({focus="list"}) end, desc = "Undotree" },
     { "<leader>sD", function() Snacks.picker.diagnostics_buffer({focus="list"}) end, desc = "Buffer Diagnostics" },
   },

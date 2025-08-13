@@ -32,5 +32,8 @@ keymap.set("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
+-- jump to the last opened buffer
+keymap.set("n", "<leader><leader>", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+
 -- Register angular navigation keymaps.
 require("utils.angular_utils").setup_keymaps()
