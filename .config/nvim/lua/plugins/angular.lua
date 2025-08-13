@@ -1,24 +1,34 @@
-local calculate_root_dir = nil
+local function calculate_root_dir(fname)
+  local util = require("lspconfig.util")
+  local log = require("vim.lsp.log")
+
+  -- Detect NX monorepo root
+  local nx_root = util.root_pattern("nx.json")(fname)
+  if nx_root then
+    log.info("NX monorepo root detected at: " .. nx_root)
+    return nx_root
+  end
+
+  -- Detect Angular workspace root
+  local angular_root = util.root_pattern("angular.json")(fname)
+  if angular_root then
+    log.info("Angular workspace root detected at: " .. angular_root)
+    return angular_root
+  end
+
+  -- Fallback to project.json detection
+  local project_root = util.root_pattern("project.json")(fname)
+  log.info("Fallback root detected at: " .. (project_root or "nil"))
+  return project_root
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
         angularls = {
-          root_dir = function(fname)
-            if calculate_root_dir == nil then
-              -- Calculate the root directory only once
-              local nx_root = require("lspconfig.util").root_pattern("nx.json")(fname)
-              if nx_root then
-                calculate_root_dir = nx_root
-                return calculate_root_dir
-              end
-
-              calculate_root_dir = require("lspconfig.util").root_pattern("angular.json", "project.json")(fname)
-              return calculate_root_dir
-            end
-            return calculate_root_dir
-          end,
+          root_dir = calculate_root_dir,
         },
       },
     },
