@@ -1,12 +1,28 @@
 return {
   "NickvanDyke/opencode.nvim",
   dependencies = {
-    "folke/snacks.nvim",
+    { "folke/snacks.nvim", opts = { input = { enabled = true } } },
   },
   opts = {
-    auto_falback_to_embedded = true,
+    auto_fallback_to_embedded = true,
   },
   keys = {
+    {
+      "<leader>aa",
+      function()
+        require("opencode").ask("@cursor: ")
+      end,
+      desc = "Ask opencode",
+      mode = "n",
+    },
+    {
+      "<leader>aa",
+      function()
+        require("opencode").ask("@selection: ")
+      end,
+      desc = "Ask opencode about selection",
+      mode = "v",
+    },
     {
       "<leader>at",
       function()
@@ -25,37 +41,99 @@ return {
       mode = "n",
     },
     {
-      "<leader>aa",
+      "<leader>an",
       function()
-        local current_buf = vim.api.nvim_get_current_buf()
-        local buf_name = vim.api.nvim_buf_get_name(current_buf)
-        local relative_path = vim.fn.fnamemodify(buf_name, ":.")
-
-        local prompt = "@selection: "
-        if buf_name ~= "" and relative_path ~= "" and vim.fn.filereadable(buf_name) == 1 then
-          prompt = "@buffer @selection: "
-        end
-
-        require("opencode").ask(prompt)
+        require("opencode").command("session_new")
       end,
-      desc = "Ask opencode about selection with buffer context",
-      mode = "v",
+      desc = "New opencode session",
+      mode = "n",
     },
     {
-      "<leader>aa",
+      "<leader>ay",
       function()
-        local current_buf = vim.api.nvim_get_current_buf()
-        local buf_name = vim.api.nvim_buf_get_name(current_buf)
-        local relative_path = vim.fn.fnamemodify(buf_name, ":.")
-
-        local prompt = ""
-        if buf_name ~= "" and relative_path ~= "" and vim.fn.filereadable(buf_name) == 1 then
-          prompt = "@buffer: "
-        end
-
-        require("opencode").ask(prompt)
+        require("opencode").command("messages_copy")
       end,
-      desc = "Ask opencode with buffer context",
+      desc = "Copy last message",
+      mode = "n",
+    },
+    {
+      "<S-C-u>",
+      function()
+        require("opencode").command("messages_half_page_up")
+      end,
+      desc = "Scroll messages up",
+      mode = "n",
+    },
+    {
+      "<S-C-d>",
+      function()
+        require("opencode").command("messages_half_page_down")
+      end,
+      desc = "Scroll messages down",
+      mode = "n",
+    },
+    {
+      "<leader>ap",
+      function()
+        require("opencode").select_prompt()
+      end,
+      desc = "Select prompt",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>ae",
+      function()
+        require("opencode").prompt("Explain @cursor and its context")
+      end,
+      desc = "Explain code near cursor",
+      mode = "n",
+    },
+    {
+      "<leader>ab",
+      function()
+        require("opencode").ask("@buffer: ")
+      end,
+      desc = "Ask opencode about buffer",
+      mode = "n",
+    },
+    {
+      "<leader>ad",
+      function()
+        require("opencode").ask("@diagnostic: ")
+      end,
+      desc = "Ask opencode about the diagnostics under the cursor",
+      mode = "n",
+    },
+    {
+      "<leader>aD",
+      function()
+        require("opencode").ask("@diagnostics: ")
+      end,
+      desc = "Ask opencode about all diagnostics",
+      mode = "n",
+    },
+    {
+      "<leader>ag",
+      function()
+        require("opencode").ask("@diff: ")
+      end,
+      desc = "Ask opencode about git diff",
+      mode = "n",
+    },
+    {
+      "<leader>aq",
+      function()
+        require("opencode").ask("@quickfix: ")
+      end,
+      desc = "Ask opencode about quickfix",
+      mode = "n",
+    },
+    {
+      "<leader>av",
+      function()
+        require("opencode").ask("@visible: ")
+      end,
+      desc = "Ask opencode about visible text",
       mode = "n",
     },
   },
