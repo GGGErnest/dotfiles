@@ -1,7 +1,7 @@
 -- lua/root-finder/init.lua
 local M = {}
 
-M.root_patterns = { "nx.json", "project.json", "package.json" }
+M.root_patterns = { "nx.json", "package.json", "project.json" }
 
 local function get_lsp_roots()
   local path = vim.api.nvim_buf_get_name(0)

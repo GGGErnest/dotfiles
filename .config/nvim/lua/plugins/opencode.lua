@@ -26,16 +26,7 @@ return {
     {
       "<leader>at",
       function()
-        require("snacks").terminal.toggle("opencode", {
-          env = { OPENCODE_THEME = "system" },
-          cwd = vim.fn.getcwd(),
-          win = {
-            position = "right",
-            width = 0.35,
-            border = "none",
-            style = "minimal",
-          },
-        })
+        require("opencode").toggle()
       end,
       desc = "Toggle opencode terminal",
       mode = "n",

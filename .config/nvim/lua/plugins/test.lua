@@ -141,8 +141,12 @@ return {
         capture_output = true,
         clear = true,
       },
+      discovery = {
+        enabled = false,
+      },
       adapters = {
         ["neotest-jest"] = {
+          jest_test_discovery = true,
           jestConfigFile = function()
             return path_util.get_root() .. "/jest.config.ts"
           end,

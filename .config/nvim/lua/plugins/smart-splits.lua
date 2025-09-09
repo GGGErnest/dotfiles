@@ -38,36 +38,36 @@ return {
     },
     -- Resizing panes
     {
-      "<C-S-h>",
+      "<C-A-h>",
       mode = { "n" },
       function()
-        require("smart-splits").move_cursor_left()
+        require("smart-splits").resize_left()
       end,
-      desc = "Move focus to the next left pane",
+      desc = "Resize panel down",
     },
     {
-      "<C-S-l>",
+      "<C-A-l>",
       mode = { "n" },
       function()
-        require("smart-splits").move_cursor_right()
+        require("smart-splits").resize_right()
       end,
-      desc = "Move focus to the next right pane",
+      desc = "Resize panel right",
     },
     {
-      "<C-S-j>",
+      "<C-A-j>",
       mode = { "n" },
       function()
-        require("smart-splits").move_cursor_down()
+        require("smart-splits").resize_down()
       end,
-      desc = "Move focus to the next right pane",
+      desc = "Resize panel down",
     },
     {
-      "<C-S-k>",
+      "<C-A-k>",
       mode = { "n" },
       function()
-        require("smart-splits").move_cursor_up()
+        require("smart-splits").resieze_up()
       end,
-      desc = "Move focus to the next right pane",
+      desc = "Reize panel up",
     },
   },
 }
