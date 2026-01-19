@@ -1,6 +1,9 @@
 return {
   "folke/snacks.nvim",
   opts = {
+    input = {
+      enabled = true,
+    },
     explorer = {
       enabled = true,
     },
